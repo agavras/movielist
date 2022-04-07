@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Favorite Movies</title>
     <link rel="stylesheet" href="./assets/styles/app.css" />
-    <script src="./assets/scripts/app.js" defer></script>
+    <script src="./assets/scripts/inprogress.js" defer></script>
   </head>
   <body>
     <div id="backdrop"></div>
@@ -27,8 +27,8 @@
         />
       </div>
       <div class="modal__actions">
-        <button class="btn btn--passive" onclick=HideFormulaire()>Cancel</button>
-        <button class="btn btn--success" onclick=AddFormulaire()>Add</button>
+        <button id="cancel"class="btn btn--passive">Cancel</button>
+        <button id="add" class="btn btn--success">Add</button>
       </div>
     </div>
     <div class="modal" id="delete-modal">
@@ -38,14 +38,14 @@
         undone!
       </p>
       <div class="modal__actions">
-        <button class="btn btn--passive">No (Cancel)</button>
-        <button class="btn btn--danger">Yes</button>
+        <button id="no" class="btn btn--passive">No (Cancel)</button>
+        <button id="yes" class="btn btn--danger">Yes</button>
       </div>
     </div>
 
     <header>
       <h1>Favorite Movies</h1>
-      <button onclick=OpenFormulaire()>ADD MOVIE</button>
+      <button id="addmovie">ADD MOVIE</button>
     </header>
 
     <main>

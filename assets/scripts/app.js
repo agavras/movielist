@@ -1,16 +1,26 @@
+// declaration et initialisation des constantes
 const backdrop = document.getElementById("backdrop");
 const modal = document.getElementById("add-modal");
 const title = document.getElementById("title");
 const img = document.getElementById("image-url");
 const rating = document.getElementById("rating");
-// const movieList = document.getElementById("movie-list");
 const entryText = document.getElementById("entry-text");
 const main = document.querySelector("body");
+const DeleteDiv = document.getElementById("delete-modal");
+const btnPassive = document.getElementById("no");
+const btnDanger = document.getElementById("yes");
 
+// declaration et initialisation des variables (global)
+let section = [];
+let sectionID = 0;
+
+// addEventListener
+btnPassive.addEventListener("click", functionNo);//HideDelete(false)
+btnDanger.addEventListener("click", functionYes);//HideDelete(true)
 backdrop.addEventListener("click", HideFormulaire);
-console.log(backdrop);
 
-// Cette fonction sera appelé si on click sur le boutton HTML
+
+// Cette fonction sera appelée si on clic sur le boutton HTML
 function OpenFormulaire() {
     backdrop.style.display = "block";
     modal.style.display = "block";
@@ -59,27 +69,28 @@ function add_li() {
     let NewRating = rating.value;
 
         // on cré une nouvelle section
-        let section = document.createElement("section");
-        section.setAttribute("class","movie-element");
-        section.setAttribute("id", "entry-text");
-        main.appendChild(section);
+        section[sectionID] = document.createElement("section");
+        section[sectionID].setAttribute("class","movie-element");
+        section[sectionID].setAttribute("id", "entry-text");
+        main.appendChild(section[sectionID]);
+        section[sectionID].addEventListener("click", AskForDelete);
 
         // on cré une nouvelle image
         let oImg = document.createElement("img");
         oImg.setAttribute("class","movie-element__image");
         oImg.src = "./assets/img.jpg";
-        section.appendChild(oImg);
+        section[sectionID].appendChild(oImg);
 
         // on cré un titre h2
         let h2G = document.createElement("h2"); // on cré un paraG
         h2G.innerHTML = NewTitle;
-        section.appendChild(h2G);
+        section[sectionID].appendChild(h2G);
 
         // on cré un btn
         let pRating = document.createElement("p"); // on cré un ul
         // pRating.setAttribute("class", "movie-element p")
         pRating.innerHTML = NewRating;
-        section.appendChild(pRating);
+        section[sectionID].appendChild(pRating);
 
         //let oUl = document.getElementById("movie-list"); // récupération de la liste
         // let iLength = oUl.getElementsByTagName("li").length; // longueur de la liste (nombre d'items)
@@ -101,4 +112,38 @@ function add_li() {
 
         // // return oLi;
         // entryText.appendChild(oUl);
+        sectionID ++;
+        console.log(sectionID);
+    }
+
+    function AskForDelete() {
+        DeleteDiv.setAttribute("class","modal.visible");
+    }
+
+    // function HideDelete(param) {
+    //     let param2 = param;
+    //     // let section = this;
+    //     if (param2 === true) {
+    //         // console.log("true");
+    //         DeleteDiv.setAttribute("class","modal");
+    //         console.log(sectionID-1);
+    //         // section[sectionID].remove();
+
+    //     } else if (param2 === false) {
+    //         // console.log("false");
+    //         DeleteDiv.setAttribute("class","modal");
+    //     }
+    // }
+
+    function functionYes() {
+        let id = sectionID-1;
+        console.log("Yes");
+            DeleteDiv.setAttribute("class","modal");
+            console.log(id);
+            section[id].remove();
+    }
+    
+    function functionNo() {
+            // console.log("false");
+            DeleteDiv.setAttribute("class","modal");
     }
