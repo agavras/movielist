@@ -1,2 +1,1 @@
-TODO : recuperer id sur la section dans le btn eventlistener
-	section[sectionID]
+TODO : utiliser les bonnes class css pour la presentation
