@@ -4,8 +4,6 @@ const modal = document.getElementById("add-modal");
 const title = document.getElementById("title");
 const img = document.getElementById("image-url");
 const rating = document.getElementById("rating");
-const entryText = document.getElementById("entry-text");
-const main = document.querySelector("body");
 const DeleteDiv = document.getElementById("delete-modal");
 const btnPassive = document.getElementById("no");
 const btnDanger = document.getElementById("yes");
@@ -34,48 +32,53 @@ function OpenFormulaire() {
     console.log("formulaire ouvert");
 }
 
-// Cette fonction sera appelée si on clic sur le boutton CANCEL du HTML
+// Cette fonction sera appelée si on clic sur le boutton CANCEL du Formulaire ADD MOVIE
+function CancelFormulaire() {
+    console.log("formulaire annulé");
+    HideFormulaire();
+
+}
+
+// Cette fonction sera appelée pour cacher le formulaire
 function HideFormulaire() {
     backdrop.style.display = "none";
     modal.style.display = "none";
-    console.log("formulaire caché ou annulé");
+    console.log("formulaire caché");
 }
 
-// Cette fonction sera appelée si on clic sur le boutton ADD du HTML
+// Cette fonction sera appelée si on clic sur le boutton ADD du Formulaire ADD MOVIE
 function AddFormulaire() {
     let NewTitle = title.value;
     let NewImg = img.value;
     let NewRating = rating.value;
 
     if (NewTitle !== "") {
-    console.log("title valide");
+    console.log("titre valide");
         if (NewImg !== "") {
         console.log("image valide");
             if (NewRating !== "" && NewRating < 6 && NewRating > 0) {
-            console.log("rating valide");
-            } else {   
-            console.log("rating vide");
-            alert("Please enter valid RATING (1 to 5)");
+            console.log("note valide");
+            } else {  
+            NewRating=null;
+            console.log("note invalide");
+            alert("Entrez une NOTE valide (1 to 5)");
             }
         } else {
-        console.log("image vide");
-        alert("Please enter valid URL");
+        NewImg=null;
+        console.log("image invalide");
+        alert("Entrez une URL valide");
         }
     } else {
-    console.log("title vide");
-    alert("Please enter valid TITLE");
+    NewTitle=null;
+    console.log("titre invalide");
+    alert("Entrez un TITRE valide");
     }
-    console.log("formulaire ajouté");
-
+    
     if (NewTitle && NewImg && NewRating) {
-    HideFormulaire();
     add_li();
-    }
-}
-
-// Cette fonction sera appelée si on clic sur le boutton CANCEL du HTML
-function CancelFormulaire() {
+    console.log("formulaire ajouté");
     HideFormulaire();
+    }
 }
 
 // Cette fonction sera appelée si à cliqué sur le boutton ADD du HTML et que les 3 conditions sont remplies
@@ -91,7 +94,6 @@ function add_li() {
         ulHtml.appendChild(section[sectionID]);
         section[sectionID].addEventListener("click", AskForDelete);
         section[sectionID].setAttribute("liID", sectionID.toString());
-        console.log("sectionID "+sectionID.toString());
 
         // on cré une nouvelle image
         let oImg = document.createElement("img");
@@ -100,41 +102,36 @@ function add_li() {
         section[sectionID].appendChild(oImg);
 
         // on cré un titre h2
-        let h2G = document.createElement("h2"); // on cré un paraG
+        let h2G = document.createElement("h2");
         h2G.innerHTML = NewTitle;
         section[sectionID].appendChild(h2G);
 
         // on cré un btn
-        let pRating = document.createElement("p"); // on cré un ul
-        // pRating.setAttribute("class", "movie-element p")
+        let pRating = document.createElement("p");
         pRating.innerHTML = NewRating;
         section[sectionID].appendChild(pRating);
 
         sectionID ++;
-        console.log(sectionID);
+        // console.log(sectionID);
     }
 
     // si on clique sur une fiche que l'on à precedament créé
     function AskForDelete() {
-        // DeleteDiv.setAttribute("class","modal");
         DeleteDiv.style.display="block";
         idToDelete = this.getAttribute("liID")
-        console.log(idToDelete);
+        // console.log(idToDelete);
     }
 
-    // si on clique sur YES dans le HTML
+    // si on clique sur YES pour valider la suppression
     function FunctionYes() {
-        let id = sectionID-1;
             console.log("YES");
-            // DeleteDiv.setAttribute("class","modal");
             DeleteDiv.style.display="none";
-            console.log(idToDelete);
+            // console.log(idToDelete);
             section[idToDelete].remove();
     }
     
-    // si on clique sur NO(cancel) dans le HTML
+    // si on clique sur NO(cancel) pour annuler la suppression
     function FunctionNo() {
             console.log("NO");
             DeleteDiv.style.display="none";
-            // DeleteDiv.setAttribute("class","modal");
     }
